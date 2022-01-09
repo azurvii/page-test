@@ -1,0 +1,97 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <button v-on:click="fetchRandomAnimal">Next Animal</button>
+    </div>
+    <hr />
+    <div v-if="animal.id">
+      <table>
+        <tr>
+          <td width="120">Name</td>
+          <td>{{animal.name}}</td>
+        </tr>
+        <tr>
+          <td>Latin name</td>
+          <td>{{animal.latin_name}}</td>
+        </tr>
+        <tr>
+          <td>Type</td>
+          <td>{{animal.animal_type}}</td>
+        </tr>
+        <tr>
+          <td>Active time</td>
+          <td>{{animal.active_time}}</td>
+        </tr>
+        <tr>
+          <td>Length</td>
+          <td>{{animal.length_min}}m - {{animal.length_max}}m</td>
+        </tr>
+        <tr>
+          <td>Weigth</td>
+          <td>{{animal.weight_min}}kg - {{animal.weight_max}}kg</td>
+        </tr>
+        <tr>
+          <td>Lifespan</td>
+          <td>{{animal.lifespan}} year(s)</td>
+        </tr>
+        <tr>
+          <td>Habitat</td>
+          <td>{{animal.habitat}}</td>
+        </tr>
+        <tr>
+          <td>Diet</td>
+          <td>{{animal.diet}}</td>
+        </tr>
+        <tr>
+          <td>Location</td>
+          <td>{{animal.geo_range}}</td>
+        </tr>
+        <tr>
+          <td colspan="2"><img width="600" v-bind:src="animal.image_link" /></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script lang="javascript">
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!',
+        animal: {},
+      },
+      methods: {
+        fetchRandomAnimal: async function () {
+          console.log('Hi, I\'m clicked!');
+          const response = await fetch('https://zoo-animal-api.herokuapp.com/animals/rand');
+          this.animal = await response.json();
+
+          const feetPerMeter = 0.3048;
+          const poundsPerKilogram = 0.4535924;
+          animal.length_min = (animal.length_min * feetPerMeter).toFixed(2);
+          animal.length_max = (animal.length_max * feetPerMeter).toFixed(2);
+          animal.weight_min = (animal.weight_min * poundsPerKilogram).toFixed(2);
+          animal.weight_max = (animal.weight_max * poundsPerKilogram).toFixed(2);
+          console.log(`Animal fetched: ${JSON.stringify(this.animal)}.`);
+        },
+      },
+    });
+  </script>
+</body>
+
+</html>
