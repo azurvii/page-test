@@ -14,6 +14,10 @@
     table {
       width: 100%;
     }
+
+    #animal-pic {
+      width: 100%;
+    }
   </style>
 </head>
 
@@ -72,19 +76,20 @@
           <td>{{animal.geo_range}}</td>
         </tr>
         <tr>
-          <td colspan="2"><img width="100%" v-bind:src="animal.image_link" /></td>
+          <td colspan="2"><img id="animal-pic" v-bind:src="animal.image_link" /></td>
         </tr>
       </table>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://unpkg.com/vue@next"></script>
   <script lang="javascript">
-    const app = new Vue({
-      el: '#app',
-      data: {
-        animal: {},
-        loading: false,
+    const app = {
+      data() {
+        return {
+          animal: {},
+          loading: false,
+        };
       },
       methods: {
         fetchRandomAnimal: async function () {
@@ -103,7 +108,9 @@
           console.log(`Animal fetched: ${JSON.stringify(this.animal)}.`);
         },
       },
-    });
+    };
+
+    Vue.createApp(app).mount('#app');
   </script>
 </body>
 
