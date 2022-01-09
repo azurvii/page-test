@@ -2,6 +2,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     table,
     th,
@@ -18,7 +19,8 @@
       <button v-on:click="fetchRandomAnimal">Next Animal</button>
     </div>
     <hr />
-    <div v-if="animal.id">
+    <div v-if="loading">Loading...</div>
+    <div v-if="!loading && animal.id">
       <table>
         <tr>
           <td width="120">Name</td>
@@ -72,21 +74,23 @@
     const app = new Vue({
       el: '#app',
       data: {
-        message: 'Hello Vue!',
         animal: {},
+        loading: false,
       },
       methods: {
         fetchRandomAnimal: async function () {
-          console.log('Hi, I\'m clicked!');
+          this.animal = {};
+          this.loading = true;
           const response = await fetch('https://zoo-animal-api.herokuapp.com/animals/rand');
           this.animal = await response.json();
+          this.loading = false;
 
           const feetPerMeter = 0.3048;
           const poundsPerKilogram = 0.4535924;
-          animal.length_min = (animal.length_min * feetPerMeter).toFixed(2);
-          animal.length_max = (animal.length_max * feetPerMeter).toFixed(2);
-          animal.weight_min = (animal.weight_min * poundsPerKilogram).toFixed(2);
-          animal.weight_max = (animal.weight_max * poundsPerKilogram).toFixed(2);
+          this.animal.length_min = (this.animal.length_min * feetPerMeter).toFixed(2);
+          this.animal.length_max = (this.animal.length_max * feetPerMeter).toFixed(2);
+          this.animal.weight_min = (this.animal.weight_min * poundsPerKilogram).toFixed(2);
+          this.animal.weight_max = (this.animal.weight_max * poundsPerKilogram).toFixed(2);
           console.log(`Animal fetched: ${JSON.stringify(this.animal)}.`);
         },
       },
