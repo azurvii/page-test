@@ -24,7 +24,10 @@
       <table>
         <tr>
           <td width="120">Name</td>
-          <td>{{animal.name}}</td>
+          <td>
+            <a
+              v-bind:href="`https://www.wikipedia.org/search-redirect.php?family=Wikipedia&language=en&language=en&go=Go&search=${animal.name}`">{{animal.name}}</a>
+          </td>
         </tr>
         <tr>
           <td>Latin name</td>
