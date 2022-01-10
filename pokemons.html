@@ -152,7 +152,6 @@
           const pokemons = await this.fetchUrl(url);
           this.pokemonCount = pokemons.count;
           const pokemonUrlParts = pokemons.results[0].url.split('/');
-          console.log(`pokemonUrlParts: ${pokemonUrlParts}`);
           await this.loadPokemon(pokemonUrlParts[pokemonUrlParts.length - 2]);
         },
       },
