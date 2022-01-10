@@ -45,31 +45,39 @@
               <tr>
                 <td
                   v-if="pokemon.sprites.other['official-artwork'].front_default"
-                  width="475"
-                  height="475"
                   rowspan="4"><img
+                    width="475"
+                    height="475"
                     v-bind:src="pokemon.sprites.other['official-artwork'].front_default"
                     alt="Official Artwork" /></td>
                 <td>{{pokemon.sprites.front_female ? 'Male Front' : 'Front'}}</td>
-                <td width="96" height="96"><img
+                <td><img
+                    width="96"
+                    height="96"
                     v-bind:src="pokemon.sprites.front_default"
                     alt="Default Front" /></td>
               </tr>
               <tr v-if="pokemon.sprites.back_default">
                 <td>{{pokemon.sprites.back_female ? 'Male Back' : 'Back'}}</td>
-                <td width="96" height="96"><img
+                <td><img
+                    width="96"
+                    height="96"
                     v-bind:src="pokemon.sprites.back_default"
                     alt="Default Back" /></td>
               </tr>
               <tr v-if="pokemon.sprites.front_female">
                 <td>Female Front</td>
-                <td width="96" height="96"><img
+                <td><img
+                    width="96"
+                    height="96"
                     v-bind:src="pokemon.sprites.front_female"
                     alt="Female Front" /></td>
               </tr>
               <tr v-if="pokemon.sprites.back_female">
                 <td>Female Back</td>
-                <td width="96" height="96"><img
+                <td><img
+                    width="96"
+                    height="96"
                     v-bind:src="pokemon.sprites.back_female"
                     alt="Female Back" /></td>
               </tr>
