@@ -109,7 +109,9 @@
         <tr>
           <td>Moves</td>
           <td>
-            <li v-for="move in pokemon.moves">{{move.move.name}}</li>
+            <select multiple>
+              <option v-for="move in pokemon.moves">{{move.move.name}}</option>
+            </select>
           </td>
         </tr>
       </table>
