@@ -27,31 +27,10 @@
 </head>
 
 <body>
-  <div id="pokemon-list">
-    <div v-if="!loadingList">
-      <div>Pokemon list</div>
-      <div class="button-row">
-        <span v-for="(pokemon, index) in pokemons.results">
-          <button v-on:click="loadPokemon(pokemon.name)">{{pokemon.name}}</button>
-          {{index < pokemons.results.length - 1 ? ' | ' : '' }}
-            </span>
-      </div>
-    </div>
-    <div>-</div>
+  <div id="pokemon-app">
     <div>
-      <span>
-        <button
-          v-bind:disabled="!pokemons.previous"
-          v-on:click="loadPreviousPage">Previous page</button>
-        -
-        <button
-          v-bind:disabled="!pokemons.next"
-          v-on:click="loadNextPage">Next page</button>
-        -
-        <button v-on:click="loadRandomPokemon">Random</button>
-      </span>
+      <button v-on:click="loadRandomPokemon">Random Pokemon</button>
     </div>
-    <div v-if="loadingList">Loading list...</div>
     <hr />
     <div v-if="loadingPokemon">Loading pokemon...</div>
     <div v-if="!loadingPokemon && pokemon.id">
@@ -134,30 +113,13 @@
     const pokemonListApp = {
       data() {
         return {
-          pokemons: {},
+          pokemonCount: 100, // Use a random small enough number as a initial count.
           pokemon: {},
-          loadingList: false,
           loadingPokemon: false,
           urlCache: {},
         };
       },
-      async mounted() {
-        await this.loadPokemonList('https://pokeapi.co/api/v2/pokemon');
-      },
       methods: {
-        async loadPokemonList(url) {
-          if (url) {
-            this.loadingList = true;
-            this.pokemons = await this.fetchUrl(url);
-            this.loadingList = false;
-          }
-        },
-        async loadPreviousPage() {
-          await this.loadPokemonList(this.pokemons.previous);
-        },
-        async loadNextPage() {
-          await this.loadPokemonList(this.pokemons.next);
-        },
         async loadPokemon(name) {
           this.loadingPokemon = true;
           const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
@@ -176,19 +138,18 @@
           }
         },
         async loadRandomPokemon() {
-          const max = this.pokemons.count;
-          if (max) {
-            const index = Math.floor(Math.random() * max);
-            const url = `https://pokeapi.co/api/v2/pokemon?limit=1&offset=${index}`;
-            console.log(`random pokemon url: ${url}`);
-            const pokemonUrlParts = (await this.fetchUrl(url)).results[0].url.split('/');
-            console.log(`pokemonUrlParts: ${pokemonUrlParts}`);
-            await this.loadPokemon(pokemonUrlParts[pokemonUrlParts.length - 2]);
-          }
+          const max = this.pokemonCount;
+          const index = Math.floor(Math.random() * max);
+          const url = `https://pokeapi.co/api/v2/pokemon?limit=1&offset=${index}`;
+          const pokemons = await this.fetchUrl(url);
+          this.pokemonCount = pokemons.count;
+          const pokemonUrlParts = pokemons.results[0].url.split('/');
+          console.log(`pokemonUrlParts: ${pokemonUrlParts}`);
+          await this.loadPokemon(pokemonUrlParts[pokemonUrlParts.length - 2]);
         },
       },
     };
-    Vue.createApp(pokemonListApp).mount('#pokemon-list');
+    Vue.createApp(pokemonListApp).mount('#pokemon-app');
   </script>
 </body>
 
