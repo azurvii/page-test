@@ -107,6 +107,28 @@
           </td>
         </tr>
         <tr>
+          <td>Types</td>
+          <td>
+            <li v-for="type in pokemon.types">#{{type.slot}}: {{type.type.name}}</li>
+          </td>
+        </tr>
+        <tr>
+          <td>Species</td>
+          <td>{{pokemon.species.name}}</td>
+        </tr>
+        <tr>
+          <td>Species Default</td>
+          <td>{{pokemon.is_default}}</td>
+        </tr>
+        <tr>
+          <td>Order</td>
+          <td>{{pokemon.order}}</td>
+        </tr>
+        <tr>
+          <td>ID</td>
+          <td>{{pokemon.id}}</td>
+        </tr>
+        <tr>
           <td>Moves</td>
           <td>
             <select multiple>
