@@ -3,37 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    .data-table,
-    th,
-    td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      vertical-align: top;
-    }
-
-    .wide-table {
-      width: 100%;
-    }
-
-    .button-row {
-      line-height: 2em;
-    }
-
-    #animal-pic {
-      width: 100%;
-    }
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css" />
 </head>
 
 <body>
   <div id="pokemon-app">
     <div v-if="!loadingList">
       <div>Pokemon list</div>
-      <div class="button-row">
+      <div>
         <span v-for="(pokemon, index) in pokemons.results">
           <button v-on:click="loadPokemon(pokemon.name)">{{pokemon.name}}</button>
-          {{index < pokemons.results.length - 1 ? ' | ' : '' }}
+          {{index < pokemons.results.length - 1 ? '&nbsp;' : '' }}
         </span>
       </div>
     </div>
@@ -55,14 +35,14 @@
     <hr />
     <div v-if="loadingPokemon">Loading pokemon...</div>
     <div v-if="!loadingPokemon && pokemon.id">
-      <table class="data-table wide-table">
+      <table>
         <tr>
           <td width="180">Name</td>
           <td>{{pokemon.name}}</td>
         </tr>
         <tr>
           <td colspan="2">
-            <table class="data-table">
+            <table>
               <tr>
                 <td
                   v-if="pokemon.sprites.other['official-artwork'].front_default"

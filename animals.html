@@ -3,22 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    table,
-    th,
-    td {
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
-
-    table {
-      width: 100%;
-    }
-
-    #animal-pic {
-      width: 100%;
-    }
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css" />
 </head>
 
 <body>
@@ -76,7 +61,7 @@
           <td>{{animal.geo_range}}</td>
         </tr>
         <tr>
-          <td colspan="2"><img id="animal-pic" v-bind:src="animal.image_link" /></td>
+          <td colspan="2"><img width="700" id="animal-pic" v-bind:src="animal.image_link" /></td>
         </tr>
       </table>
     </div>
